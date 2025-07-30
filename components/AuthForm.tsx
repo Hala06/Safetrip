@@ -63,20 +63,19 @@ export default function AuthForm({ mode, onToggleMode }: AuthFormProps) {
     setIsLoading(true)
 
     try {
-      // Mock authentication for frontend-only app
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
-      
       if (mode === 'signup') {
+        // Demo signup - no backend needed
         toast.success('Account created successfully! Please sign in.')
         onToggleMode()
         setFormData({ name: '', email: '', password: '', confirmPassword: '' })
         setErrors({})
       } else {
+        // Demo signin - no backend needed
         if (formData.email && formData.password) {
-          toast.success('Welcome back!')
+          toast.success('Welcome back! (Demo)')
           router.push('/dashboard')
         } else {
-          toast.error('Invalid credentials')
+          toast.error('Please enter email and password')
         }
       }
     } catch (error) {
