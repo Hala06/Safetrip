@@ -1,39 +1,22 @@
-// src/app/layout.tsx
-"use client";
+import './globals.css';
+import { Inter } from 'next/font/google';
 
-import "./globals.css";
-import { useState, useEffect, ReactNode } from "react";
-import Navbar from "../components/Navbar";
+const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("theme");
-      if (stored === "light" || stored === "dark") return stored;
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-    return "light";
-  });
+export const metadata = {
+  title: 'SafeTravel - Your Values-Based Travel Assistant',
+  description: 'Explore cities safely and comfortably with personalized recommendations for Muslim travelers, solo adventurers, and accessibility-conscious explorers.',
+};
 
-  useEffect(() => {
-    const html = document.documentElement;
-    if (theme === "dark") html.classList.add("dark");
-    else html.classList.remove("dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
-        <Navbar onToggleTheme={toggleTheme} theme={theme} />
-        <main className="flex-grow pt-20">
-          <div className="container mx-auto px-6">{children}</div>
-        </main>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-950 dark:to-dark-900`} suppressHydrationWarning>
+        {children}
       </body>
     </html>
   );

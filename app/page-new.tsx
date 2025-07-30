@@ -6,25 +6,10 @@ import Link from 'next/link'
 import { AnimatedButton } from '@/components/ui/AnimatedButton'
 import { AnimatedCard, FloatingParticles, MorphingBlob, AnimatedIcon } from '@/components/ui/AnimatedComponents'
 import { FadeInUp, StaggerContainer, StaggerItem, SlideIn, Reveal } from '@/components/ui/PageTransitions'
-import { InteractiveCard, GradientText, CounterAnimation, PulsingIcon } from '@/components/ui/MicroAnimations'
-import { SparkleField, MouseSpotlight } from '@/components/ui/AdvancedEffects'
-import dynamic from 'next/dynamic'
-
-// Dynamically import Globe3D to avoid SSR issues
-const Globe3D = dynamic(() => import('@/components/ui/Globe3D'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary-500/20 to-purple-500/20 animate-pulse flex items-center justify-center">
-        <Globe className="w-16 h-16 text-primary-600 animate-spin" style={{ animationDuration: '3s' }} />
-      </div>
-    </div>
-  )
-})
 
 export default function HomePage() {
   const { scrollYProgress } = useScroll()
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
 
   const stats = [
@@ -39,28 +24,28 @@ export default function HomePage() {
       icon: Shield,
       title: 'SafeZone Mapping',
       description: 'Real-time safety visualization with AI-powered risk assessment and community insights',
-      gradient: 'from-emerald-400 via-teal-500 to-cyan-600',
+      gradient: 'from-emerald-500 to-teal-600',
       particles: ['🛡️', '📍', '✅']
     },
     {
       icon: Heart,
       title: 'Cultural Alignment',
       description: 'Discover halal restaurants, prayer spaces, and venues that match your values',
-      gradient: 'from-rose-400 via-pink-500 to-fuchsia-600',
+      gradient: 'from-rose-500 to-pink-600',
       particles: ['🕌', '🍽️', '❤️']
     },
     {
       icon: Sparkles,
       title: 'AI Travel Assistant',
       description: 'Get instant, personalized recommendations powered by advanced AI technology',
-      gradient: 'from-violet-400 via-purple-500 to-indigo-600',
+      gradient: 'from-purple-500 to-indigo-600',
       particles: ['🤖', '💬', '✨']
     },
     {
       icon: Target,
       title: 'Budget-Conscious',
       description: 'Smart budget tracking with cost-effective recommendations and deals',
-      gradient: 'from-amber-400 via-orange-500 to-red-500',
+      gradient: 'from-amber-500 to-orange-600',
       particles: ['💰', '🏷️', '📊']
     },
     {
@@ -108,16 +93,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen overflow-hidden">
-      {/* Advanced Background Effects */}
-      <SparkleField />
-      <MouseSpotlight />
-      
       {/* Animated Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/20 dark:from-dark-950 dark:via-dark-900/90 dark:to-dark-800/80">
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
         <MorphingBlob 
           className="top-1/4 left-1/4" 
           size={400} 
-          color="bg-gradient-to-br from-primary-400/20 to-purple-500/20" 
+          color="bg-gradient-to-br from-blue-400/20 to-purple-500/20" 
         />
         <MorphingBlob 
           className="bottom-1/4 right-1/4" 
@@ -148,14 +129,14 @@ export default function HomePage() {
               className="flex items-center gap-3"
             >
               <motion.div
-                className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-2xl flex items-center justify-center"
+                className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 10 }}
               >
                 <Shield className="h-6 w-6 text-white" />
               </motion.div>
               <div>
-                <div className="text-2xl font-black bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
-                  SafeTrip.AI
+                <div className="text-2xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  SafeTravel
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                   Values-Based Travel
@@ -168,9 +149,14 @@ export default function HomePage() {
               animate={{ opacity: 1, x: 0 }}
               className="flex items-center gap-4"
             >
-              <Link href="/login">
-                <AnimatedButton size="sm">
+              <Link href="/auth">
+                <AnimatedButton variant="outline" size="sm">
                   Sign In
+                </AnimatedButton>
+              </Link>
+              <Link href="/auth">
+                <AnimatedButton size="sm">
+                  Get Started
                 </AnimatedButton>
               </Link>
             </motion.div>
@@ -204,13 +190,17 @@ export default function HomePage() {
             <FadeInUp delay={0.2}>
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-none">
                 <span className="block">Travel with</span>
-                <motion.span className="block relative">
-                  <GradientText gradient="from-primary-600 via-purple-600 to-emerald-600">
-                    Confidence
-                  </GradientText>
+                <motion.span 
+                  className="block bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent relative"
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                >
+                  Confidence
                   {/* Animated underline */}
                   <motion.div
-                    className="absolute bottom-0 left-0 h-2 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full"
+                    className="absolute bottom-0 left-0 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: '100%' }}
                     transition={{ duration: 1.5, delay: 0.8 }}
@@ -238,10 +228,21 @@ export default function HomePage() {
             {/* Enhanced CTA Buttons */}
             <FadeInUp delay={0.6}>
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-                <Link href="/login">
+                <Link href="/auth">
                   <AnimatedButton size="lg" className="text-xl px-12 py-5">
                     <span>Start Exploring</span>
                     <ArrowRight className="h-6 w-6 ml-2" />
+                  </AnimatedButton>
+                </Link>
+                <Link href="/demo">
+                  <AnimatedButton variant="outline" size="lg" className="text-xl px-12 py-5">
+                    <span>Watch Demo</span>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Sparkles className="h-6 w-6 ml-2" />
+                    </motion.div>
                   </AnimatedButton>
                 </Link>
               </div>
@@ -252,23 +253,26 @@ export default function HomePage() {
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto" staggerDelay={0.1}>
                 {stats.map((stat, index) => (
                   <StaggerItem key={stat.label}>
-                    <InteractiveCard className="text-center p-6" glowColor="primary">
-                      <PulsingIcon className="text-4xl mb-3 flex justify-center">
-                        <span>{stat.icon}</span>
-                      </PulsingIcon>
-                      <div className="text-3xl md:text-4xl font-black mb-2">
-                        <GradientText>
-                          <CounterAnimation 
-                            value={parseInt(stat.value.replace(/[^0-9]/g, ''))} 
-                            suffix={stat.value.replace(/[0-9]/g, '')}
-                            duration={2}
-                          />
-                        </GradientText>
-                      </div>
+                    <AnimatedCard delay={0} hover={true} className="text-center p-6">
+                      <motion.div 
+                        className="text-4xl mb-3"
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
+                      >
+                        {stat.icon}
+                      </motion.div>
+                      <motion.div 
+                        className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", delay: 1 + index * 0.1 }}
+                      >
+                        {stat.value}
+                      </motion.div>
                       <div className="text-gray-600 dark:text-gray-400 font-semibold">
                         {stat.label}
                       </div>
-                    </InteractiveCard>
+                    </AnimatedCard>
                   </StaggerItem>
                 ))}
               </StaggerContainer>
@@ -289,146 +293,6 @@ export default function HomePage() {
               />
             </div>
           </motion.div>
-        </section>
-
-        {/* 3D Globe Section */}
-        <section className="px-6 py-20 relative bg-gradient-to-br from-slate-50 to-blue-50 dark:from-dark-900 dark:to-dark-800">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Globe Container */}
-              <FadeInUp delay={0.2}>
-                <div className="relative h-96 lg:h-[500px]">
-                  <Globe3D className="w-full h-full" />
-                  
-                  {/* Floating stats around globe */}
-                  <motion.div
-                    className="absolute top-20 -left-4 bg-white dark:bg-dark-800 rounded-2xl shadow-xl p-4 border border-gray-200 dark:border-dark-700"
-                    animate={{
-                      y: [0, -10, 0],
-                      rotate: [0, 2, 0]
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">200+ Cities</span>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="absolute bottom-20 -right-4 bg-white dark:bg-dark-800 rounded-2xl shadow-xl p-4 border border-gray-200 dark:border-dark-700"
-                    animate={{
-                      y: [0, 10, 0],
-                      rotate: [0, -2, 0]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">AI Powered</span>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="absolute top-1/2 -right-8 bg-white dark:bg-dark-800 rounded-2xl shadow-xl p-4 border border-gray-200 dark:border-dark-700"
-                    animate={{
-                      x: [0, 5, 0],
-                      y: [0, -5, 0]
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 2
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">98% Safe</span>
-                    </div>
-                  </motion.div>
-                </div>
-              </FadeInUp>
-
-              {/* Content */}
-              <FadeInUp delay={0.4}>
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-                      Explore the World{' '}
-                      <span className="bg-gradient-to-r from-primary-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
-                        Safely
-                      </span>
-                    </h2>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                      Our AI-powered platform analyzes real-time data from over 200 cities worldwide, 
-                      providing you with personalized safety insights and cultural recommendations.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3">
-                        <Shield className="w-6 h-6 text-emerald-600" />
-                        <span className="font-semibold text-gray-900 dark:text-white">Real-time Safety</span>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Live safety monitoring and alerts
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3">
-                        <Heart className="w-6 h-6 text-rose-600" />
-                        <span className="font-semibold text-gray-900 dark:text-white">Cultural Match</span>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Places that align with your values
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3">
-                        <Sparkles className="w-6 h-6 text-purple-600" />
-                        <span className="font-semibold text-gray-900 dark:text-white">AI Assistant</span>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Intelligent recommendations
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3">
-                        <Target className="w-6 h-6 text-orange-600" />
-                        <span className="font-semibold text-gray-900 dark:text-white">Budget Smart</span>
-                      </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Cost-effective travel planning
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-6">
-                    <Link href="/demo">
-                      <AnimatedButton size="lg" className="text-lg px-8 py-4">
-                        Explore Interactive Demo
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </AnimatedButton>
-                    </Link>
-                  </div>
-                </div>
-              </FadeInUp>
-            </div>
-          </div>
         </section>
 
         {/* Features Section */}
@@ -622,7 +486,7 @@ export default function HomePage() {
             </FadeInUp>
             
             <FadeInUp delay={0.4}>
-              <Link href="/login">
+              <Link href="/auth">
                 <AnimatedButton 
                   variant="secondary" 
                   size="lg" 
