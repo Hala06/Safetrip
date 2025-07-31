@@ -1,219 +1,69 @@
-This is a travel assistant intended to help travellers discover new places more comfortably and safely.
+🌍 SafeTrip AI
+- Smart, culturally-aware travel guidance - powered by AI, built for everyone.
 
-# SafeTrip.AI 🌍🛡️
+SafeTrip AI helps travelers make safer, more comfortable decisions when exploring unfamiliar cities. From filtering by cultural needs to understanding neighborhood safety, we designed SafeTrip to feel like a local guide and safety companion - all within a simple map-based interface.
 
-**Your AI-powered personalized travel assistant for safe and values-based exploration**
+🌟 Inspiration
+While planning trips abroad, we realized that most travel apps help you navigate places - but few help you understand them. What’s the vibe of this area? Is it safe at night? Does it have halal or vegan options nearby?
+SafeTrip AI was born from this need — to empower travelers with real-time, inclusive, and culturally-aware insights.
 
-SafeTrip.AI helps first-time and values-conscious travelers (Muslim tourists, solo women, accessibility-conscious users) explore unfamiliar cities safely and comfortably using Google Maps Platform, real-time data, and intelligent AI assistance.
+✨ Features
+- 🗺️ Interactive Map with smart filters and SafeZone overlays
 
-## 🚀 Project Status
+- 🔎 Search for halal food, prayer spots, budget-friendly locations, and more
 
-This is a frontend-only implementation of the SafeTrip.AI concept. Backend functionality for authentication, user data management, and API integrations will be implemented separately.
+- 💬 AI Chatbot for live, contextual travel guidance
 
-## ✨ Features
+- 📍 Area Summaries that combine live data + AI insight
 
-### 🎯 Smart Values-Based Filtering
-- **Religious Preferences**: Find halal restaurants, mosques, prayer rooms
-- **Safety-First**: Avoid bars, red-light zones, high-crime areas
-- **Cultural Alignment**: Discover quiet, family-friendly neighborhoods
-- **Accessibility**: Wheelchair accessible locations and limited mobility support
+- 🌐 Designed for all travelers — solo, group, budget, culturally-conscious, and more
 
-### 🛡️ AI-Powered Safety Intelligence
-- **Real-time Safety Zones**: Visual safety mapping with risk assessment
-- **Neighborhood Insights**: AI-generated area summaries ("Great for solo travelers. Quiet. 2 halal cafés.")
-- **Dynamic Risk Assessment**: Based on time of day, crowd data, and crime statistics
-- **Personalized Alerts**: Safety notifications tailored to your profile
+- 🛠️ Built With
+Frontend
+- ```Next.js 14 (App Router)```
+- ```TypeScript```
+- ```TailwindCSS (Dark/light mode)```
+- ```Framer Motion (animations)```
 
-### 🤖 Intelligent AI Assistant
-- **24/7 Chat Support**: Ask "Is Kensington Market safe at night?" for instant, contextual responses
-- **Cultural Context**: Understanding of religious and cultural needs
-- **Local Recommendations**: Personalized suggestions based on your values and budget
-- **Multi-language Support**: English, French, Japanese, Arabic, Spanish
+Backend
+- ```Go + PostgreSQL```
+- ```Prisma ORM```
+- Custom REST API for AI and Places logic
 
-### 📱 Modern User Experience
-- **Intuitive Onboarding**: Smart questionnaire to understand your preferences
-- **Interactive Maps**: Google Maps integration with safety overlay
-- **Personalized Dashboard**: Track your favorites, search history, and recommendations
-- **Mobile-First Design**: Responsive, fast, and accessible
+APIs
+- Google Maps JavaScript API
+- Google Places API
+- OpenWeatherMap API
+- Gemini  (Generative AI)
 
-## 🏙️ Supported Cities
+🧠 What We Learned
+- Google Maps Platform’s dynamic layers & Places API
 
-### Currently Available:
-- **🇨🇦 Toronto, Canada**
-  - Complete safety mapping
-  - 50+ neighborhoods analyzed
-  - Halal restaurant database
-  - Mosque and prayer room locations
+- Using AI (Gemini) to process and personalize city data
 
-- **🇯🇵 Tokyo, Japan** *(Coming Soon)*
-  - Multi-cultural dining options
-  - Prayer facilities mapping
-  - Cultural district recommendations
+- Structuring modern web apps with Next.js + Tailwind
 
-### Coming Soon:
-- London, UK
-- New York, USA
-- Dubai, UAE
-- Paris, France
+- Designing for accessibility, trust, and cultural inclusion
 
-## 🛠️ Tech Stack
+⚙️ Challenges
+- Combining real-time data with AI in a responsive UI
 
-### Frontend
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Modern styling system
-- **Framer Motion** - Smooth animations
-- **Radix UI** - Accessible components
+- Ensuring safety-related UI was clear, not fear-inducing
 
-### AI & Maps
-- **Google Maps Platform** - Maps and Places API
-- **Google Places API** - Restaurant and location data
+- Balancing performance with detailed map interactions
+- 
+- Making AI feel useful — not generic
 
-### Development & Deployment
-- **ESLint** - Code quality
-- **TypeScript** - Type checking
-- **Git** - Version control
-- **Vercel** - Production deployment
+🚀 Next Steps
+- 🔐 Add real-world crime & neighborhood data integration
 
-## 🚀 Getting Started
+- 🌍 Multi-language and translation support
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-- Google Maps API key
-- OpenAI API key
+- ⭐️ Community-contributed safety ratings
 
-### Installation
+- 📱 Launch mobile-friendly PWA
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/safetrip-ai.git
-   cd safetrip-ai
-   ```
+-📢 Live travel companion mode with local alerts
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-   ```env
-   # Google Maps (Required)
-   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="your-google-maps-api-key"
-
-   # Environment
-   NODE_ENV="development"
-   ```
-
-4. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:3000`
-
-## 📚 API Setup Guide
-
-### Google Maps Platform
-1. Visit [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select existing
-3. Enable these APIs:
-   - Maps JavaScript API
-   - Places API
-   - Geocoding API
-4. Create credentials (API Key)
-5. Restrict the key to your domain for security
-
-### OpenAI API
-1. Visit [OpenAI Platform](https://platform.openai.com/)
-2. Create an account or sign in
-3. Navigate to API Keys section
-4. Create a new secret key
-5. Add billing information for usage
-
-## 🎨 Features Demonstration
-
-### User Onboarding
-- **Smart Questionnaire**: Religion, dietary needs, travel style, budget
-- **Preference Learning**: AI adapts to user behavior over time
-- **Quick Setup**: Skip option for immediate access
-
-### Search & Discovery
-- **Intelligent Filtering**: Combine multiple criteria (halal + safe + budget)
-- **Visual Results**: Rich cards with ratings, distance, safety scores
-- **Real-time Data**: Live availability, opening hours, current safety status
-
-### Safety Intelligence
-- **Visual Safety Map**: Color-coded zones (green=safe, yellow=caution, red=avoid)
-- **Contextual Alerts**: Time-based recommendations
-- **Community Data**: User-generated safety reports and tips
-
-### AI Chat Assistant
-- **Natural Language**: Ask complex questions in your preferred language
-- **Context Awareness**: Understands your location, preferences, and current plans
-- **Proactive Suggestions**: Recommends based on weather, time, and events
-
-## 🗂️ Project Structure
-
-```
-safetrip-ai/
-├── app/                          # Next.js App Router
-│   ├── demo/                     # Feature demonstration
-│   ├── globals.css              # Global styles
-│   ├── layout.tsx               # Root layout
-│   └── page.tsx                 # Homepage
-├── components/                   # Reusable components
-│   ├── ui/                      # Base UI components and animations
-│   ├── Navbar.tsx               # Navigation
-│   ├── Hero.tsx                 # Landing page hero
-│   ├── Features.tsx             # Feature showcase
-│   └── MapSection.tsx           # Interactive map component
-├── lib/                         # Utilities and configuration
-│   ├── constants.ts             # App constants and city data
-│   └── utils.ts                 # Helper functions
-├── package.json                # Dependencies and scripts
-├── tailwind.config.js          # Tailwind configuration
-└── tsconfig.json               # TypeScript configuration
-```
-
-## 🔐 Security & Privacy
-
-- **Data Protection**: All user data encrypted and stored securely
-- **Privacy First**: Minimal data collection, user consent required
-- **API Security**: Rate limiting, input validation, secure authentication
-- **GDPR Compliant**: Data deletion, export, and consent management
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Google Maps Platform for location services
-- OpenAI for AI capabilities
-- The open-source community for amazing tools
-- Beta testers and early users for feedback
-
-## 📞 Support
-
-- **Email**: support@safetrip.ai
-- **Documentation**: [docs.safetrip.ai](https://docs.safetrip.ai)
-- **Community**: [Discord](https://discord.gg/safetrip)
-- **Issues**: [GitHub Issues](https://github.com/your-username/safetrip-ai/issues)
-
----
-
-**Made with ❤️ for safe and inclusive travel**
+📸 Preview
+https://safetrip-zeta.vercel.app/
