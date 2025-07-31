@@ -4,6 +4,7 @@ import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+import { Globe } from 'lucide-react'
 
 function GlobeModel() {
   const ref = useRef<THREE.Group>(null)

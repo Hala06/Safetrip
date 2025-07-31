@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, Lock, Mail, User, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -86,18 +85,17 @@ export default function AuthForm({ mode, onToggleMode }: AuthFormProps) {
           toast.error(error.error || 'Something went wrong')
         }
       } else {
-        const result = await signIn('credentials', {
-          email: formData.email,
-          password: formData.password,
-          redirect: false,
-        })
-
-        if (result?.error) {
-          toast.error('Invalid credentials')
-        } else {
-          toast.success('Welcome back!')
-          router.push('/dashboard')
-        }
+        // Simulate login for frontend-only operation
+        setTimeout(() => {
+          if (formData.email && formData.password) {
+            toast.success('Welcome back!')
+            router.push('/dashboard')
+          } else {
+            toast.error('Please fill in all fields')
+          }
+          setIsLoading(false)
+        }, 1000)
+        return
       }
     } catch (error) {
       toast.error('Something went wrong')

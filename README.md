@@ -6,6 +6,10 @@ This is a travel assistant intended to help travellers discover new places more 
 
 SafeTrip.AI helps first-time and values-conscious travelers (Muslim tourists, solo women, accessibility-conscious users) explore unfamiliar cities safely and comfortably using Google Maps Platform, real-time data, and intelligent AI assistance.
 
+## 🚀 Project Status
+
+This is a frontend-only implementation of the SafeTrip.AI concept. Backend functionality for authentication, user data management, and API integrations will be implemented separately.
+
 ## ✨ Features
 
 ### 🎯 Smart Values-Based Filtering
