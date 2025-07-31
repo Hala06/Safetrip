@@ -4,6 +4,7 @@ import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
+// Globe icon used in the loading fallback
 import { Globe } from 'lucide-react'
 
 function GlobeModel() {

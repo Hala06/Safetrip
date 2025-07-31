@@ -11,15 +11,19 @@ export default function MapSection() {
     libraries: ["places"],
   });
 
+  // Define the callback outside of conditional rendering
+  const handleMapLoad = useCallback(() => {}, []);
+
   if (!isLoaded) {
     return <p className="text-center text-gray-400">Loading map…</p>;
   }
+  
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
       zoom={12}
-      onLoad={useCallback(() => {}, [])}
+      onLoad={handleMapLoad}
     >
       <Marker position={center} />
       <Marker position={{ lat: 40.7306, lng: -73.9352 }} />

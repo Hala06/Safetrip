@@ -1,0 +1,9 @@
+.git
+.github
+node_modules
+README.md
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+*.log
