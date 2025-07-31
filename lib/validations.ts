@@ -1,86 +1,64 @@
-// User preferences types for frontend-only app
-export interface UserPreferences {
-  id?: string;
-  userId: string;
-  religion?: 'muslim' | 'christian' | 'jewish' | 'hindu' | 'buddhist' | 'none' | 'other';
-  dietaryRestrictions: ('halal' | 'kosher' | 'vegetarian' | 'vegan' | 'gluten-free' | 'none')[];
-  budget: 'low' | 'medium' | 'high';
-  travelStyle: 'solo' | 'couple' | 'family' | 'group';
-  mobilityNeeds: ('wheelchair' | 'limited-mobility' | 'none')[];
-  safetyLevel: 'low' | 'medium' | 'high';
-  avoidAreas: ('bars' | 'nightlife' | 'red-light' | 'high-crime' | 'crowded' | 'none')[];
-  preferredActivities: ('cultural' | 'religious' | 'food' | 'shopping' | 'nature' | 'museums' | 'family-friendly')[];
-  maxWalkingDistance: number; // in km
-  languagePreference: 'english' | 'french' | 'japanese' | 'arabic' | 'spanish';
-}
+import { z } from 'zod'
 
-// Signup form types
-export interface SignupForm {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+// User preferences schema
+export const UserPreferencesSchema = z.object({
+  id: z.string().optional(),
+  userId: z.string(),
+  religion: z.enum(['muslim', 'christian', 'jewish', 'hindu', 'buddhist', 'none', 'other']).optional(),
+  dietaryRestrictions: z.array(z.enum(['halal', 'kosher', 'vegetarian', 'vegan', 'gluten-free', 'none'])).default([]),
+  budget: z.enum(['low', 'medium', 'high']).default('medium'),
+  travelStyle: z.enum(['solo', 'couple', 'family', 'group']).default('solo'),
+  mobilityNeeds: z.array(z.enum(['wheelchair', 'limited-mobility', 'none'])).default([]),
+  safetyLevel: z.enum(['low', 'medium', 'high']).default('medium'),
+  avoidAreas: z.array(z.enum(['bars', 'nightlife', 'red-light', 'high-crime', 'crowded', 'none'])).default([]),
+  preferredActivities: z.array(z.enum(['cultural', 'religious', 'food', 'shopping', 'nature', 'museums', 'family-friendly'])).default([]),
+  maxWalkingDistance: z.number().min(0.1).max(10).default(2), // in km
+  languagePreference: z.enum(['english', 'french', 'japanese', 'arabic', 'spanish']).default('english'),
+})
 
-// Login form types
-export interface LoginForm {
-  email: string;
-  password: string;
-}
+// Signup form schema
+export const SignupSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+})
 
-// Place search types
-export interface PlaceSearch {
-  query: string;
-  location: {
-    lat: number;
-    lng: number;
-  };
-  radius: number; // in meters
-  type?: 'restaurant' | 'mosque' | 'attraction' | 'accommodation' | 'transport';
-}
+// Login form schema
+export const LoginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(1, 'Password is required'),
+})
 
-// Chat message types
-export interface ChatMessage {
-  message: string;
-  context?: {
-    currentLocation?: {
-      lat: number;
-      lng: number;
-      city: string;
-    };
-    userPreferences?: UserPreferences;
-  };
-}
+// Place search schema
+export const PlaceSearchSchema = z.object({
+  query: z.string().min(1, 'Search query is required'),
+  location: z.object({
+    lat: z.number(),
+    lng: z.number(),
+  }),
+  radius: z.number().min(100).max(50000).default(5000), // in meters
+  type: z.enum(['restaurant', 'mosque', 'attraction', 'accommodation', 'transport']).optional(),
+})
 
-// Validation functions for frontend-only app
-export function validateEmail(email: string): string | null {
-  if (!email) return 'Email is required';
-  if (!/\S+@\S+\.\S+/.test(email)) return 'Invalid email address';
-  return null;
-}
+// Chat message schema
+export const ChatMessageSchema = z.object({
+  message: z.string().min(1, 'Message cannot be empty').max(1000, 'Message too long'),
+  context: z.object({
+    currentLocation: z.object({
+      lat: z.number(),
+      lng: z.number(),
+      city: z.string(),
+    }).optional(),
+    userPreferences: UserPreferencesSchema.optional(),
+  }).optional(),
+})
 
-export function validatePassword(password: string): string | null {
-  if (!password) return 'Password is required';
-  if (password.length < 8) return 'Password must be at least 8 characters';
-  return null;
-}
-
-export function validateSignup(data: SignupForm): Record<string, string> {
-  const errors: Record<string, string> = {};
-  
-  if (!data.name || data.name.length < 2) {
-    errors.name = 'Name must be at least 2 characters';
-  }
-  
-  const emailError = validateEmail(data.email);
-  if (emailError) errors.email = emailError;
-  
-  const passwordError = validatePassword(data.password);
-  if (passwordError) errors.password = passwordError;
-  
-  if (data.password !== data.confirmPassword) {
-    errors.confirmPassword = "Passwords don't match";
-  }
-  
-  return errors;
-}
+export type UserPreferences = z.infer<typeof UserPreferencesSchema>
+export type SignupData = z.infer<typeof SignupSchema>
+export type LoginData = z.infer<typeof LoginSchema>
+export type PlaceSearch = z.infer<typeof PlaceSearchSchema>
+export type ChatMessage = z.infer<typeof ChatMessageSchema>

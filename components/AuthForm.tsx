@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, Lock, Mail, User, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -64,18 +65,38 @@ export default function AuthForm({ mode, onToggleMode }: AuthFormProps) {
 
     try {
       if (mode === 'signup') {
-        // Demo signup - no backend needed
-        toast.success('Account created successfully! Please sign in.')
-        onToggleMode()
-        setFormData({ name: '', email: '', password: '', confirmPassword: '' })
-        setErrors({})
-      } else {
-        // Demo signin - no backend needed
-        if (formData.email && formData.password) {
-          toast.success('Welcome back! (Demo)')
-          router.push('/dashboard')
+        const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+          }),
+        })
+
+        if (response.ok) {
+          toast.success('Account created successfully! Please sign in.')
+          onToggleMode()
+          setFormData({ name: '', email: '', password: '', confirmPassword: '' })
+          setErrors({})
         } else {
-          toast.error('Please enter email and password')
+          const error = await response.json()
+          toast.error(error.error || 'Something went wrong')
+        }
+      } else {
+        const result = await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        })
+
+        if (result?.error) {
+          toast.error('Invalid credentials')
+        } else {
+          toast.success('Welcome back!')
+          router.push('/dashboard')
         }
       }
     } catch (error) {
