@@ -1,7 +1,4 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'SafeTravel - Your Values-Based Travel Assistant',
@@ -15,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-950 dark:to-dark-900`} suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 dark:from-dark-950 dark:to-dark-900" suppressHydrationWarning>
         {children}
       </body>
     </html>
