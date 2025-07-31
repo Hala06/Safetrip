@@ -17,6 +17,7 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slider": "^1.2.1",
     "@radix-ui/react-tabs": "^1.1.1",
+    "@react-google-maps/api": "^2.20.7",
     "@react-three/drei": "^9.88.13",
     "@react-three/fiber": "^8.15.11",
     "clsx": "^2.1.1",
