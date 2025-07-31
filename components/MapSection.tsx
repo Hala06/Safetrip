@@ -7,7 +7,7 @@ const center = { lat: 40.7128, lng: -74.0060 };
 export default function MapSection() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY!,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'demo-key',
     libraries: ["places"],
   });
 

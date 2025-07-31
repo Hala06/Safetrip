@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { Shield, MapPin, Clock, TrendingDown, TrendingUp, Minus } from 'lucide-react'
 import { apiClient, SafetyZone, Place } from '@/lib/api'
 import { SUPPORTED_CITIES, SAFETY_ZONES } from '@/lib/constants'
+import FallbackMap from './FallbackMap'
 
 interface SafetyMapProps {
   city: string
@@ -44,10 +45,18 @@ export default function SafetyMap({
     safetyLevel: 'all'
   })
 
-  const { isLoaded } = useJsApiLoader({
+  // Check if Google Maps API key is available
+  const hasValidApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY && 
+                         process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== 'demo-key'
+
+  const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-    libraries
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'demo-key',
+    libraries,
+    // Add fallback options for demo
+    googleMapsApiOptions: {
+      version: 'weekly'
+    }
   })
 
   const cityData = SUPPORTED_CITIES[city as keyof typeof SUPPORTED_CITIES]
@@ -113,6 +122,29 @@ export default function SafetyMap({
       onLocationSelect({ lat, lng })
     }
   }, [onLocationSelect])
+
+  // Use fallback map if Google Maps API is not available or has errors
+  if (!hasValidApiKey || loadError) {
+    return (
+      <div className={`space-y-4 ${className}`}>
+        {showFilters && (
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+              <strong>Demo Mode:</strong> Using interactive fallback map. 
+              To enable full Google Maps functionality, configure NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.
+            </p>
+          </div>
+        )}
+        
+        <FallbackMap
+          center={mapCenter}
+          zoom={zoom}
+          onLocationSelect={onLocationSelect}
+          className="w-full"
+        />
+      </div>
+    )
+  }
 
   if (!isLoaded) {
     return (

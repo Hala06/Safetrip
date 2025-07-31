@@ -233,7 +233,7 @@ export default function AreaSummary({ location, radius = 500, city, className = 
               Safety Considerations
             </h4>
             <div className="space-y-2">
-              {areaData.warnings.map((warning, index) => (
+              {areaData.warnings && areaData.warnings.map((warning, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -10 }}
